@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/SigninPage.dart';
 import 'home.dart';
 
-void main() => runApp(myApp());
+void main() => runApp(MyApp());
 
-class myApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,5 +14,3 @@ class myApp extends StatelessWidget {
     );
   }
 }
-
-

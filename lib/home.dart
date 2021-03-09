@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'SigninPage.dart';
-import 'SignupPage.dart';
-
+import 'sign_in_page.dart';
+import 'sign_up_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -45,25 +44,29 @@ class HomePage extends StatelessWidget {
                         left: 50.0, right: 50.0, top: 10.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => SigninPage(),
-                        ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInPage(),
+                            ));
                       },
-                    child: new Container(
-                        alignment: Alignment.center,
-                        height: 60.0,
-                        decoration: new BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Color(0xfff020202),
-                              width: 2,
-                            ),
-                            borderRadius: new BorderRadius.circular(9.0)),
-                        child: new Text("Sign In",
-                            style: new TextStyle(
-                                fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold))),
+                      child: new Container(
+                          alignment: Alignment.center,
+                          height: 60.0,
+                          decoration: new BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Color(0xfff020202),
+                                width: 2,
+                              ),
+                              borderRadius: new BorderRadius.circular(9.0)),
+                          child: new Text("Sign In",
+                              style: new TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold))),
+                    ),
                   ),
-                ),
                 )
               ],
             ),
@@ -76,21 +79,25 @@ class HomePage extends StatelessWidget {
                         left: 50.0, right: 50.0, top: 10.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => SignupPage(),
-                        ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpPage(),
+                            ));
                       },
-                    child: new Container(
-                        alignment: Alignment.center,
-                        height: 60.0,
-                        decoration: new BoxDecoration(
-                            color: Color(0xFF18D191),
-                            borderRadius: new BorderRadius.circular(9.0)),
-                        child: new Text("Sign Up",
-                            style: new TextStyle(
-                                fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold))),
+                      child: new Container(
+                          alignment: Alignment.center,
+                          height: 60.0,
+                          decoration: new BoxDecoration(
+                              color: Color(0xFF18D191),
+                              borderRadius: new BorderRadius.circular(9.0)),
+                          child: new Text("Sign Up",
+                              style: new TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold))),
+                    ),
                   ),
-                ),
                 )
               ],
             ),

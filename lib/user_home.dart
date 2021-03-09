@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/SigninPage.dart';
-import 'home.dart';
-import 'calendar.dart';
-import 'buttom_bar.dart';
+import 'bottom_bar.dart';
 
 void main() {
   runApp(UserHome());
@@ -31,7 +28,7 @@ class _UserHome extends State<UserHome> {
           children: <Widget>[],
         ),
       ),
-      bottomNavigationBar: buttom_bar(),
-      );
+      bottomNavigationBar: BottomBar(),
+    );
   }
 }

@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/SigninPage.dart';
-import 'home.dart';
-import 'buttom_bar.dart';
+import 'bottom_bar.dart';
 
 void main() {
-  runApp(profile());
+  runApp(Profile());
 }
 
-// ignore: camel_case_types
-class profile extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _profile();
+  State<StatefulWidget> createState() => _Profile();
 }
 
-// ignore: camel_case_types
-class _profile extends State<profile> {
+class _Profile extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +28,7 @@ class _profile extends State<profile> {
           children: <Widget>[],
         ),
       ),
-      bottomNavigationBar: buttom_bar(),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }

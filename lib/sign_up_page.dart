@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'SigninPage.dart';
-import 'UserHome.dart';
+import 'sign_in_page.dart';
+import 'user_home.dart';
 
 void main() {
-  runApp(SignupPage());
+  runApp(SignUpPage());
 }
 
-class SignupPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SignupPage();
+  State<StatefulWidget> createState() => _SignUpPage();
 }
 
-class _SignupPage extends State<SignupPage> {
+class _SignUpPage extends State<SignUpPage> {
   List<String> _genders = [
     'Male',
     'Female',
@@ -69,7 +69,8 @@ class _SignupPage extends State<SignupPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20, right: 200),
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 20, right: 200),
                     child: new Text('Personal Information',
                         style: new TextStyle(
                             fontSize: 15.0,
@@ -163,7 +164,8 @@ class _SignupPage extends State<SignupPage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 0.0),
                     child: new TextField(
-                      decoration: new InputDecoration(labelText: "Mother's maiden name"),
+                      decoration: new InputDecoration(
+                          labelText: "Mother's maiden name"),
                     ),
                   ),
                 ],
@@ -225,7 +227,7 @@ class _SignupPage extends State<SignupPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SigninPage(),
+                              builder: (context) => SignInPage(),
                             ));
                       },
                       child: new Container(

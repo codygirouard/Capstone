@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/SigninPage.dart';
-import 'home.dart';
-import 'buttom_bar.dart';
+import 'bottom_bar.dart';
 
 void main() {
-  runApp(notifications());
+  runApp(Notifications());
 }
 
-// ignore: camel_case_types
-class notifications extends StatefulWidget {
+class Notifications extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _notifications();
+  State<StatefulWidget> createState() => _Notifications();
 }
 
-// ignore: camel_case_types
-class _notifications extends State<notifications> {
+class _Notifications extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +28,7 @@ class _notifications extends State<notifications> {
           children: <Widget>[],
         ),
       ),
-      bottomNavigationBar: buttom_bar(),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/SignupPage.dart';
-import 'package:flutter_app1/UserHome.dart';
-import 'package:flutter_app1/home.dart';
+import 'package:flutter_app1/sign_up_page.dart';
+import 'package:flutter_app1/user_home.dart';
 
-class SigninPage extends StatelessWidget {
+class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +124,7 @@ class SigninPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignupPage(),
+                              builder: (context) => SignUpPage(),
                             ));
                       },
                       child: new Container(
