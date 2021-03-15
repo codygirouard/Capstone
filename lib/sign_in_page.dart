@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'Sign_up_Page.dart';
 import 'user_home.dart';
@@ -235,8 +237,7 @@ class _SigninPage extends State<SigninPage> {
                     width: 2,
                   ),
                   color: Colors.white,
-                  borderRadius:
-                  new BorderRadius.circular(9.0)),
+                  borderRadius: new BorderRadius.circular(9.0)),
               child: new Text("Send",
                   style: new TextStyle(
                       fontSize: 18.0,
@@ -252,7 +253,9 @@ class _SigninPage extends State<SigninPage> {
             Navigator.of(context).pop();
           },
           textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
+          child: IconButton(
+            icon: const Icon(Icons.clear),
+          ),
         ),
       ],
     );
