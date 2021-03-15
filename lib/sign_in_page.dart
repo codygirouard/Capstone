@@ -15,6 +15,7 @@ class _SigninPage extends State<SigninPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String Email = "";
   String Password = "";
+  String email = "";
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
@@ -63,7 +64,7 @@ class _SigninPage extends State<SigninPage> {
                         horizontal: 20.0, vertical: 0.0),
                     child: new TextFormField(
                       controller: emailController,
-                      onChanged: (String text){
+                      onChanged: (String text) {
                         setState(() {
                           Email = text;
                         });
@@ -85,7 +86,7 @@ class _SigninPage extends State<SigninPage> {
                         horizontal: 20.0, vertical: 0.0),
                     child: new TextFormField(
                       controller: passwordController,
-                      onChanged: (String text){
+                      onChanged: (String text) {
                         setState(() {
                           Password = text;
                         });
@@ -107,13 +108,22 @@ class _SigninPage extends State<SigninPage> {
                         child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10.0, right: 20.0, top: 10.0),
-                            child: new Container(
-                                alignment: Alignment.center,
-                                height: 60.0,
-                                child: new Text("Forgot Password?",
-                                    style: new TextStyle(
-                                        fontSize: 17.0,
-                                        color: Color(0xFF18D191))))),
+                            child: GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      _buildPopupDialog(context),
+                                );
+                              },
+                              child: new Container(
+                                  alignment: Alignment.center,
+                                  height: 60.0,
+                                  child: new Text("Forgot Password?",
+                                      style: new TextStyle(
+                                          fontSize: 17.0,
+                                          color: Color(0xFF18D191)))),
+                            )),
                       ),
                     ],
                   ),
@@ -196,6 +206,55 @@ class _SigninPage extends State<SigninPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('Email verification code'),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new TextField(
+            onChanged: (String text) {
+              setState(() {
+                email = text;
+              });
+            },
+            decoration: new InputDecoration(labelText: 'Email'),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
+            child: Container(
+              alignment: Alignment.center,
+              height: 40.0,
+              decoration: new BoxDecoration(
+                  border: Border.all(
+                    color: Color(0xfff020202),
+                    width: 2,
+                  ),
+                  color: Colors.white,
+                  borderRadius:
+                  new BorderRadius.circular(9.0)),
+              child: new Text("Send",
+                  style: new TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
+            ),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Close'),
+        ),
+      ],
     );
   }
 }
