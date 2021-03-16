@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'bottom_bar.dart';
 
-const List<String> _Options = [
-  'Dismiss',
-  'Snooze',
-];
-
 void main() {
   runApp(Notifications());
 }
@@ -69,6 +64,11 @@ class _Notifications extends State<Notifications> {
   }
 
   Widget _notificationCard(String notification) {
+    List<String> _options = [
+      'Dismiss',
+      'Snooze',
+    ];
+
     return ListTile(
       leading: Image.asset(
         'images/Main_logo.jpg',
@@ -83,7 +83,7 @@ class _Notifications extends State<Notifications> {
         ),
         onSelected: _subMenu,
         itemBuilder: (BuildContext context) {
-          return _Options.map((String choice) {
+          return _options.map((String choice) {
             return PopupMenuItem(
               child: Text(choice),
               value: choice + '+' + notification,
