@@ -132,12 +132,13 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 40.0,
         title: Text(widget.title),
         centerTitle: true,
         actions: [
           Icon(Icons.calendar_today),
           SizedBox(
-            width: 10.0,
+            width: 20.0,
           ),
         ],
       ),
