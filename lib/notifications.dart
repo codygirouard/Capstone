@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'bottom_bar.dart';
 
+const List<String> _Options = [
+  'Dismiss',
+  'Snooze',
+];
+
 void main() {
   runApp(Notifications());
 }
@@ -11,24 +16,95 @@ class Notifications extends StatefulWidget {
 }
 
 class _Notifications extends State<Notifications> {
+  List<String> notifs = [
+    'Medicine 1',
+    'Medicine 2',
+    'Medicine 3',
+    'Medicine 4',
+    'Medicine 5',
+    'Medicine 6',
+    'Medicine 7',
+    'Medicine 8',
+    'Medicine 9',
+    'Medicine 10',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40.0),
-        child: AppBar(
+      appBar: AppBar(
           backgroundColor: Colors.blue,
           automaticallyImplyLeading: false,
-          title: const Text('Notifications'),
-        ),
-      ),
+          title: Text('Notifications'),
+          centerTitle: true,
+          toolbarHeight: 40.0,
+          actions: [
+            Icon(Icons.notifications),
+            SizedBox(
+              width: 20.0,
+            ),
+          ]),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[],
-        ),
+        child: _buildNotifications(),
       ),
       bottomNavigationBar: BottomBar(),
     );
+  }
+
+  Widget _buildNotifications() {
+    return ListView(
+      children: notifs
+          .map(
+            (notif) => Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 2),
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              margin: EdgeInsets.all(8.0),
+              child: _notificationCard(notif),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  Widget _notificationCard(String notification) {
+    return ListTile(
+      leading: Image.asset(
+        'images/Main_logo.jpg',
+        height: 40.0,
+        width: 40.0,
+      ),
+      trailing: PopupMenuButton(
+        icon: Icon(
+          Icons.more_vert,
+          color: Colors.black,
+          size: 40.0,
+        ),
+        onSelected: _subMenu,
+        itemBuilder: (BuildContext context) {
+          return _Options.map((String choice) {
+            return PopupMenuItem(
+              child: Text(choice),
+              value: choice + '+' + notification,
+            );
+          }).toList();
+        },
+      ),
+      title: Text(notification.toString()),
+      horizontalTitleGap: 20.0,
+      subtitle: Text('Take right now!'),
+    );
+  }
+
+  void _subMenu(String choice) {
+    setState(() {
+      List info = choice.split("+");
+      if (info[0] == 'Dismiss') {
+        notifs.removeWhere((notif) => info[1] == notif);
+      } else {
+        notifs.removeWhere((notif) => info[1] == notif);
+      }
+    });
   }
 }
