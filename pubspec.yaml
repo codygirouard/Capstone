@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  mongo_dart: ^0.4.4
+
   cupertino_icons: ^1.0.0
   table_calendar: ^2.3.3
 
