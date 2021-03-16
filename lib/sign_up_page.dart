@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'sign_in_Page.dart';
+import 'sign_in_page.dart';
 import 'user_home.dart';
 
 void main() {
@@ -35,7 +35,6 @@ class _SignupPage extends State<SignupPage> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
       backgroundColor: Color(0xffff9fafc),
       body: Center(
         child: Form(

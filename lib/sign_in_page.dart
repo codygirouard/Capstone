@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'Sign_up_Page.dart';
+import 'sign_up_page.dart';
 import 'user_home.dart';
 
 void main() {
@@ -28,7 +28,6 @@ class _SigninPage extends State<SigninPage> {
       key: _formKey,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        resizeToAvoidBottomPadding: false,
         backgroundColor: Color(0xffff9fafc),
         body: Center(
           child: SingleChildScrollView(
