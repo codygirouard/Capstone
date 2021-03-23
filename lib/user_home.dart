@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/src/widgets/container_home_profile.dart';
-import 'package:flutter_app1/src/widgets/container_home_user.dart';
+import 'container_home_profile.dart';
+import 'container_home_user.dart';
 
-import '../../calendar.dart';
-import '../../notifications.dart';
+import 'calendar.dart';
+import 'notifications.dart';
 
 class HomePage extends StatefulWidget {
   @override
