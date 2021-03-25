@@ -109,7 +109,7 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: Duration(milliseconds: 400),
     );
 
     _animationController.forward();
@@ -146,8 +146,8 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
         mainAxisSize: MainAxisSize.max,
         children: [
           _buildTableCalendarWithBuilders(),
-          const SizedBox(height: 8.0),
-          const SizedBox(height: 8.0),
+          SizedBox(height: 8.0),
+          SizedBox(height: 8.0),
           Expanded(child: _buildEventList()),
         ],
       ),
@@ -164,7 +164,7 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
       formatAnimation: FormatAnimation.slide,
       startingDayOfWeek: StartingDayOfWeek.monday,
       availableGestures: AvailableGestures.all,
-      availableCalendarFormats: const {
+      availableCalendarFormats: {
         CalendarFormat.month: '',
       },
       calendarStyle: CalendarStyle(
@@ -185,8 +185,8 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
           return FadeTransition(
             opacity: Tween(begin: 0.0, end: 1.0).animate(_animationController),
             child: Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 5.0, left: 6.0),
+              margin: EdgeInsets.all(4.0),
+              padding: EdgeInsets.only(top: 5.0, left: 6.0),
               color: kPrimaryColor,
               width: 100,
               height: 100,
@@ -200,8 +200,8 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
         },
         todayDayBuilder: (context, date, _) {
           return Container(
-            margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 5.0, left: 6.0),
+            margin: EdgeInsets.all(4.0),
+            padding: EdgeInsets.only(top: 5.0, left: 6.0),
             color: kPrimaryColor.withOpacity(0.4),
             width: 100,
             height: 100,
@@ -236,7 +236,7 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
 
   Widget _buildEventsMarker(DateTime date, List events) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 300),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: _calendarController.isSelected(date)
@@ -267,8 +267,7 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
                   border: Border.all(width: 0.8),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
                   leading: Image.asset(
                     'images/Pill.jpg',
