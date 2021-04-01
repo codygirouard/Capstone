@@ -330,7 +330,7 @@ class _SignupPage extends State<SignupPage> {
                               if (_formKey.currentState.validate()) {
                                 // Process data.
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => UserHome(),
+                                  builder: (context) => HomePage(),
                                 ));
                               }
                             },

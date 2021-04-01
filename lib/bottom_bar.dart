@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'calendar.dart';
-import 'user_home.dart';
 import 'notifications.dart';
 import 'profile.dart';
+import 'user_home.dart';
 
 void main() => runApp(BottomBar());
 
@@ -24,7 +25,7 @@ class BottomBar extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UserHome(),
+                      builder: (context) => HomePage(),
                     ));
               }),
           Spacer(),
@@ -63,7 +64,7 @@ class BottomBar extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Profile(),
+                      builder: (context) => HomeContainerProfile(),
                     ));
               }),
           Spacer(),

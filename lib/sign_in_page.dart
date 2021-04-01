@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+
 import 'sign_up_page.dart';
 import 'user_home.dart';
 
@@ -140,7 +139,7 @@ class _SigninPage extends State<SigninPage> {
                               if (_formKey.currentState.validate()) {
                                 // Process data.
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => UserHome(),
+                                  builder: (context) => HomePage(),
                                 ));
                               }
                             },
