@@ -17,6 +17,8 @@ class _SigninPage extends State<SigninPage> {
   String Email = "";
   String Password = "";
   String email = "";
+  String maiden_name = "";
+  String new_password = "";
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
@@ -211,7 +213,7 @@ class _SigninPage extends State<SigninPage> {
 
   Widget _buildPopupDialog(BuildContext context) {
     return new AlertDialog(
-      title: const Text('Email verification code'),
+      title: const Text('Forgot Password'),
       content: new Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,8 +226,24 @@ class _SigninPage extends State<SigninPage> {
             },
             decoration: new InputDecoration(labelText: 'Email'),
           ),
+          new TextField(
+            onChanged: (String text) {
+              setState(() {
+                maiden_name = text;
+              });
+            },
+            decoration: new InputDecoration(labelText: "Mother's maiden name"),
+          ),
+          new TextField(
+            onChanged: (String text) {
+              setState(() {
+                new_password = text;
+              });
+            },
+            decoration: new InputDecoration(labelText: "New Password"),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             child: Container(
               alignment: Alignment.center,
               height: 40.0,
@@ -236,7 +254,7 @@ class _SigninPage extends State<SigninPage> {
                   ),
                   color: Colors.white,
                   borderRadius: new BorderRadius.circular(9.0)),
-              child: new Text("Send",
+              child: new Text("Change Password",
                   style: new TextStyle(
                       fontSize: 18.0,
                       color: Colors.black,
