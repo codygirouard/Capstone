@@ -11,9 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+<<<<<<< Updated upstream
 
   mongo_dart: ^0.4.4
 
+=======
+  mongo_dart: ^0.5.0+1
+>>>>>>> Stashed changes
   cupertino_icons: ^1.0.0
   table_calendar: ^2.3.3
 
