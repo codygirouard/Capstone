@@ -328,7 +328,7 @@ class _SignupPage extends State<SignupPage> {
                           child: GestureDetector(
                             onTap: () {
                               if (_formKey.currentState.validate()) {
-                                // Process data.
+                                // Process data. => Send to controller function for new user
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => HomePage(),
                                 ));

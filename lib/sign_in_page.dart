@@ -139,7 +139,7 @@ class _SigninPage extends State<SigninPage> {
                           child: GestureDetector(
                             onTap: () {
                               if (_formKey.currentState.validate()) {
-                                // Process data.
+                                // Process data. => Send data to authenthication
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => HomePage(),
                                 ));
