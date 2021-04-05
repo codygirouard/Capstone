@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'bottom_bar.dart';
 
 void main() {
   runApp(Notifications());
@@ -42,7 +41,6 @@ class _Notifications extends State<Notifications> {
       body: Center(
         child: _buildNotifications(),
       ),
-      bottomNavigationBar: BottomBar(),
     );
   }
 
