@@ -16,7 +16,7 @@ class _UserHome extends State<HomePage> {
   static final List<Widget> widgetOptions = [
     HomeContainerUser(),
     HomeContainerProfile(), //ANOTHER WIDGETS
-    CalendarUI(),
+    Calendar(),
     Notifications(),
   ];
 

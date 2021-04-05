@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'bottom_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+// constants
 const double kImagesSize = 40.0;
 const Color kPrimaryColor = Colors.blue;
 const Color kSecondaryColor = Colors.blueGrey;
@@ -11,22 +11,8 @@ void main() {
   initializeDateFormatting().then((_) => runApp(Calendar()));
 }
 
-class Calendar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Calendar',
-      theme: ThemeData(
-        primarySwatch: kPrimaryColor,
-      ),
-      home: CalendarUI(title: 'Calendar'),
-    );
-  }
-}
-
-class CalendarUI extends StatefulWidget {
-  CalendarUI({Key key, this.title}) : super(key: key);
+class Calendar extends StatefulWidget {
+  Calendar({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -34,7 +20,7 @@ class CalendarUI extends StatefulWidget {
   _CalendarUI createState() => _CalendarUI();
 }
 
-class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
+class _CalendarUI extends State<Calendar> with TickerProviderStateMixin {
   Map<DateTime, List> _events;
   List _selectedEvents;
   AnimationController _animationController;
@@ -43,68 +29,10 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _events = {
-      DateTime.utc(2021, 3, 2): [
-        'Vicodin 10:00 AM',
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM',
-        'Levothyroxine 9:00 PM',
-        'Azithromycin 9:00 PM'
-      ],
-      DateTime.utc(2021, 3, 9): [
-        'Vicodin 10:00 AM',
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 3, 16): [
-        'Vicodin 10:00 AM',
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 3, 23): [
-        'Vicodin 10:00 AM',
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 3, 30): [
-        'Vicodin 10:00 AM',
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 3, 4): ['Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 3, 11): ['Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 3, 18): ['Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 3, 25): ['Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 3, 6): ['Simvastatin 11:00 AM', 'Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 3, 13): [
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 3, 20): [
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 3, 27): [
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 2, 23): [
-        'Vicodin 10:00 AM',
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 2, 25): ['Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 2, 27): [
-        'Simvastatin 11:00 AM',
-        'Lisinopril 11:00 AM'
-      ],
-      DateTime.utc(2021, 4, 1): ['Lisinopril 11:00 AM'],
-      DateTime.utc(2021, 4, 3): ['Simvastatin 11:00 AM', 'Lisinopril 11:00 AM'],
-    };
+    _events = getMedicines(medicines());
+    DateTime now = DateTime.now();
 
-    _selectedEvents = _events[DateTime.utc(
-            DateTime.now().year, DateTime.now().month, DateTime.now().day)] ??
-        [];
+    _selectedEvents = _events[DateTime.utc(now.year, now.month, now.day)] ?? [];
     _calendarController = CalendarController();
 
     _animationController = AnimationController(
@@ -133,7 +61,8 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40.0,
-        title: Text(widget.title),
+        leading: new Container(),
+        title: Text('Calendar'),
         centerTitle: true,
         actions: [
           Icon(Icons.calendar_today),
@@ -151,7 +80,6 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
           Expanded(child: _buildEventList()),
         ],
       ),
-      bottomNavigationBar: BottomBar(),
     );
   }
 
@@ -275,16 +203,142 @@ class _CalendarUI extends State<CalendarUI> with TickerProviderStateMixin {
                     height: kImagesSize,
                     width: kImagesSize,
                   ),
-                  trailing: Icon(
-                    Icons.check,
-                    color: Colors.green,
-                    size: kImagesSize,
-                  ),
                   title: Text(event.toString()),
                   horizontalTitleGap: 30.0,
                 ),
               ))
           .toList(),
     );
+  }
+
+  // dummy medicine list to imitate database retrieval
+  List<List<String>> medicines() {
+    return [
+      ['medicineF', 'daily', '2200'],
+      ['medicineC2', 'daily', '900'],
+      ['medicineG', 'daily', '300'],
+      ['medicineH', 'daily', '1700'],
+      ['medicineC7', 'daily', '900'],
+      ['medicineC4', 'daily', '900'],
+      ['medicineD', '1', '1200'],
+      ['medicineE', '021221', '2000'],
+    ];
+    /*['medicineA', 'mon', '900'],
+     ['medicineB', 'mon/wed/fri', '1400'],
+     */
+  }
+
+  // convert medicine data into format that can be inserted into the calendar
+  Map<DateTime, List<String>> getMedicines(List<List<String>> meds) {
+    Map<DateTime, List<String>> events = {};
+    for (final v in meds) {
+      String name = v[0];
+      String days = v[1];
+      String time = v[2];
+      time = getTime(time);
+
+      if (int.tryParse(days) != null) {
+        // is days a number?
+        if (days.length < 3) {
+          // days is a day of the month, so each month on that day the medicine is taken
+          int day = int.parse(days);
+          DateTime now = DateTime.now();
+          for (int i = 1; i <= 12; i++) {
+            DateTime date = DateTime.utc(now.year, i, day);
+            events = addEvent(events, date, name + " " + time);
+          }
+          for (int i = 1; i <= 6; i++) {
+            DateTime date = DateTime.utc(now.year + 1, i, day);
+            events = addEvent(events, date, name + " " + time);
+            date = DateTime.utc(now.year - 1, i + 6, day);
+            events = addEvent(events, date, name + " " + time);
+          }
+        } else {
+          // days is a specific date (e.g.: 022121 = February 21, 2021
+          int year = 2000 + int.parse(days.substring(4));
+          int day = int.parse(days.substring(2, 4));
+          int month = int.parse(days.substring(0, 2));
+          DateTime date = DateTime.utc(year, month, day);
+          events = addEvent(events, date, name + " " + time);
+        }
+      } else if (days == 'daily') {
+        // medicine is taken every day
+        DateTime now = DateTime.now();
+        DateTime today = DateTime.utc(now.year, now.month, now.day);
+        events = addEvent(events, today, name + " " + time);
+        for (int i = 1; i < 60; i++) {
+          var date = today.add(Duration(days: i));
+          events = addEvent(events, date, name + " " + time);
+          date = today.subtract(Duration(days: i));
+          events = addEvent(events, date, name + " " + time);
+        }
+      } else {
+        // medicine is taken on specific days of the week
+        // add event by weekday
+      }
+    }
+
+    // sort all entries in a day by time and then by name
+    events.forEach((k, v) => v.sort((a, b) => compareTimes(a, b)));
+    return events;
+  }
+
+  // convert number time into a string time (e.g.: 1500 = 3:00 PM)
+  String getTime(String time) {
+    int timeNum = int.parse(time);
+    time = (timeNum >= 1200) ? " PM" : " AM";
+    String minutes = (timeNum % 100) < 10
+        ? "0" + (timeNum % 100).toString()
+        : (timeNum % 100).toString();
+    timeNum = timeNum > 1200 ? timeNum - 1200 : timeNum;
+    time = (timeNum ~/ 100).toString() + ":" + minutes + time;
+
+    return time;
+  }
+
+  // add an event to a specific day in events map
+  Map<DateTime, List<String>> addEvent(
+      Map<DateTime, List<String>> events, DateTime date, String event) {
+    if (events.containsKey(date)) {
+      events[date].add(event);
+    } else {
+      events[date] = [event];
+    }
+    return events;
+  }
+
+  // add an event to the events map based on weekdays
+  Map<DateTime, List<String>> addEventByWeekday(
+      Map<DateTime, List<String>> events, String days, String event) {
+    if (days.length < 7) {
+      days = days.substring(0, 2);
+    }
+    return events;
+  }
+
+  // convert string time to number time (e.g.: 12:00 PM = 1200)
+  int strTimeToNum(String time) {
+    int period = time.split(" ")[1] == "AM" ? 0 : 1200;
+    if (time.split(":")[0] == "12") {
+      period = period == 0 ? 1200 : 0;
+    }
+    period += int.parse(time.replaceAll(RegExp(r':'), '').split(" ")[0]);
+    return period;
+  }
+
+  // compare two events to sort (e.g.: MedicineA 9:00 AM < MedicineB 5:00 PM)
+  int compareTimes(String time1, String time2) {
+    var time1Arr = time1.split(" ");
+    var time2Arr = time2.split(" ");
+    String name1 = time1Arr[0];
+    String name2 = time2Arr[0];
+    int timeNum1 = strTimeToNum(time1Arr[1] + " " + time1Arr[2]);
+    int timeNum2 = strTimeToNum(time2Arr[1] + " " + time2Arr[2]);
+
+    int compare = timeNum1.compareTo(timeNum2);
+    if (compare == 0) {
+      compare = name1.compareTo(name2);
+    }
+    return compare;
   }
 }
