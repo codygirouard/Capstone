@@ -1,6 +1,6 @@
 # Capstone - Team Ultra
 Abhaya Neupane : Abhaya9717 |
-Cody Girouard : codygirouard|
+Cody Girouard : codygirouard |
 Ian Ocasio : ianocasio05 |
 Megan Dexter : theprankmaster413 |
 Raghib Aftab : RaghibA |
