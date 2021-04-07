@@ -39,17 +39,16 @@ findUserById(String id) async {
   return(user);
 }
 
-findUserByEmail(String username) async {
+findUserByEmail(String email) async {
   Db db = await Db.create(
       'mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz');
   await db.open();
   print('Connected to MongoDb');
   DbCollection users = db.collection('users');
 
-  print("Find By Username Test: ");
+  var user = await users.find(where.eq('email', email)).toList();
 
   //assign ints to values because it doesn't print correctly when using user[][] template
-  var user = await users.find(where.eq('username', username)).toList();
   var height = user[0]['height'];
   var weight = user[0]['weight'];
   var streak = user[0]['streak'];
@@ -67,6 +66,34 @@ findUserByEmail(String username) async {
   print('Closing MongoDB');
   await db.close();
   return(user);
+}
+
+authenticateUser(String email, String password) async {
+  bool authenticated = false;
+
+  Db db = await Db.create(
+      'mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz');
+  await db.open();
+  print('Connected to MongoDb');
+  DbCollection users = db.collection('users');
+
+  if(users.find(where.eq('email', email)) != null){
+    var user = await users.find(where.eq('email', email)).toList();
+    if( user[0]['password'] == password ){
+      authenticated = true;
+      print("Authentication Success");
+    }
+    else{
+      print("Authentication Failed");
+    }
+  }
+  else{
+    print("Authentication Failed");
+  }
+
+  await db.close();
+
+  return authenticated;
 }
 
 // Update User
