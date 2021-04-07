@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'sign_in_page.dart';
 import 'sign_up_page.dart';
-import 'connect.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    connectToMongo(); // <---temp test function for connecting to mongo database<---
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xffff9fafc),
