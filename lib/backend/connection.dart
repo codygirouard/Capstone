@@ -60,7 +60,7 @@ findUserByEmail(String email) async {
 
   //print every value of a given user
   print('Name: ' + user[0]['name']);
-  print('Username: ' + user[0]['username']);
+  print('Email: ' + user[0]['email']);
   print("Height: $height");
   print("Weight: $weight");
   print("Age: $age");
@@ -94,6 +94,7 @@ authenticateUser(String email, String password) async {
     print("Authentication Failed");
   }
 
+  print('Closing MongoDB');
   await db.close();
 
   return authenticated;
@@ -179,7 +180,7 @@ getUserMedicine(String userId) async {
 
 main(List<String> args) {
   // createUser('Test 2', 'test2@email.com', 72, 175, 24, '1234', 32);
-  // findUserByEmail('Test1');
+  findUserByEmail('test1@email.com');
   // findUserById('606ccc2e1e55117067049ba3');
   // var auth = authenticateUser('test3@email.com', '1234');
   // print(auth);
