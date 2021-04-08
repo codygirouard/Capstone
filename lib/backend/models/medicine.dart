@@ -7,9 +7,16 @@ class Medicine {
   final int repeat;
   final bool completed;
 
-  Medicine({this.scheduleID, this.medicineID, this.name, this.dosage, this.time, this.repeat, this.completed});
+  Medicine(
+      {this.scheduleID,
+      this.medicineID,
+      this.name,
+      this.dosage,
+      this.time,
+      this.repeat,
+      this.completed});
 
-  factory Medicine.fromJson(Map<String, dynamic> json){
+  factory Medicine.fromJson(Map<String, dynamic> json) {
     return Medicine(
       scheduleID: json['scheduleID'],
       medicineID: json['medicineID'],

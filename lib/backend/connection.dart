@@ -1,7 +1,8 @@
 import 'package:mongo_dart/mongo_dart.dart';
+import 'models/users.dart';
+import 'models/medicine.dart';
 
-//! USER CRUD METHODS
-
+//! USER METHODS
 // Create User
 createUser(String name, String email, int height, int weight, int age,
     String password, int streak) async {
@@ -135,7 +136,31 @@ deleteUser(String id) async {
   print('Closing MongoDB');
   await db.close();
 }
-//! END OF USER CRUD METHODS
+//! END OF USER METHODS
+
+//! Medicine
+
+// add medicine
+addMedicine(
+    String userId, String name, String dosage, int time, int repeat) async {
+  Db db = await Db.create(
+      "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
+  await db.open();
+  print("Connected to MongoDB");
+  DbCollection meds = db.collection('medicine');
+
+  await meds.insert({
+    'userID': userId,
+    'name': name,
+    'dosage': dosage,
+    'time': time,
+    'repeat': repeat,
+    'completed': false
+  });
+
+  print('Closing MongoDB');
+  await db.close();
+}
 
 main(List<String> args) {
   // createUser('Test 2', 'test2@email.com', 72, 175, 24, '1234', 32);
@@ -145,5 +170,6 @@ main(List<String> args) {
   // print(auth);
   // updateUser('606e0a407f314f0c108446f3', 'test 1 update', 'test@test.com', 175, 160, 40, '1234', 12);
   // deleteUser('606e909ff039883a1d95f0b8');
+  addMedicine('606e907f779fd77e42bc71b9', 'smth', '100mg', 2100, 24);
   return;
 }
