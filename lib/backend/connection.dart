@@ -23,7 +23,7 @@ createUser(String name, String email, int height, int weight, int age,
   await db.close();
 }
 
-// Find User
+// Find User by ID
 findUserById(String id) async {
   Db db = await Db.create(
       "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
@@ -36,9 +36,10 @@ findUserById(String id) async {
 
   print('Closing MongoDB');
   await db.close();
-  return(user);
+  return (user);
 }
 
+// Find user by email
 findUserByEmail(String email) async {
   Db db = await Db.create(
       'mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz');
@@ -65,9 +66,10 @@ findUserByEmail(String email) async {
 
   print('Closing MongoDB');
   await db.close();
-  return(user);
+  return (user);
 }
 
+// authenticate user login
 authenticateUser(String email, String password) async {
   bool authenticated = false;
 
@@ -77,17 +79,15 @@ authenticateUser(String email, String password) async {
   print('Connected to MongoDb');
   DbCollection users = db.collection('users');
 
-  if(users.find(where.eq('email', email)) != null){
+  if (users.find(where.eq('email', email)) != null) {
     var user = await users.find(where.eq('email', email)).toList();
-    if( user[0]['password'] == password ){
+    if (user[0]['password'] == password) {
       authenticated = true;
       print("Authentication Success");
-    }
-    else{
+    } else {
       print("Authentication Failed");
     }
-  }
-  else{
+  } else {
     print("Authentication Failed");
   }
 
@@ -98,9 +98,11 @@ authenticateUser(String email, String password) async {
 
 // Update User
 //updateUser() {}
-/*main(List<String> args) {
-  createUser('Test One', 'Test1', 62, 125, 28, '1234', 17);
-  findUserByUsername('Test1');
-  findUserById('606ccc2e1e55117067049ba3');
+main(List<String> args) {
+  createUser('Test 3', 'test3@email.com', 62, 125, 28, '1234', 17);
+  // findUserByEmail('Test1');
+  // findUserById('606ccc2e1e55117067049ba3');
+  var auth = authenticateUser('test3@email.com', '1234');
+  print(auth);
   return;
-}*/
+}
