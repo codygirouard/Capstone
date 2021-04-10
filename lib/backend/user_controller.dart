@@ -4,8 +4,9 @@ import 'models/medicine.dart';
 
 //! USER METHODS
 //! Create User
-createUser(String name, String email, int height, int weight, int age,
-    String password, int streak) async {
+createUser(String fName, String lName, String email, int height, int weight, int age,
+    String password, int streak, String phone, String pharmacy, String insurance, String gender, String maiden) async {
+  var failed = false;
   Db db = await Db.create(
       "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
   await db.open();
@@ -18,21 +19,29 @@ createUser(String name, String email, int height, int weight, int age,
   if (exists != 1) {
     //insert user into mongoDb
       await users.insert({
-        'name': name,
+        'fName': fName,
+        'lName': lName,
         'email': email,
         'password': password,
         'height': height,
         'weight': weight,
         'age': age,
-        'streak': streak
+        'streak': streak,
+        'phone': phone,
+        'pharmacy': pharmacy,
+        'insurance': insurance,
+        'gender': gender,
+        'maiden': maiden
       });
       print('User created!');
   }else{
+    failed = true;
     print('Exists Already');
   }
 
   print('Closing MongoDB');
   await db.close();
+  return failed;
 }
 
 //! Find User by ID

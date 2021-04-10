@@ -334,7 +334,8 @@ class _SignupPage extends State<SignupPage> {
                                   builder: (context) => UserHome(),
                                 ));
                                 var usrHeight = int.parse(height);
-                                createUser(f_Name, email, usrHeight, 210, 36, password, 7); //<---!!Function call to send user data to DB!!
+                                var usrAge = int.parse(age);
+                                createUser(f_Name, l_Name, email, usrHeight, 210, usrAge, password, 0, phone_no, pharmacy, insurance, gender, maiden_name); //<---!!Function call to send user data to DB!!
                               }
                             },
                             child: new Container(
