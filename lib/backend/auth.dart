@@ -12,9 +12,12 @@ authenticateUser(String email, String password) async {
   print('Connected to MongoDb');
   DbCollection users = db.collection('users');
 
-  if (users.find(where.eq('email', email)) != null) {
-    var user = await users.find(where.eq('email', email)).toList();
-    if (user[0]['password'] == password) {
+  var user = await users.find(where.eq('email', email)).toList();
+  var checkEmail = user[0]['email'];
+  var checkPassword = user[0]['password'];
+
+  if (checkEmail == email) {
+    if (checkPassword == password) {
       authenticated = true;
       print("Authentication Success");
     } else {

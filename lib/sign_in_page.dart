@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/backend/auth.dart';
+import 'backend/auth.dart';
 import 'sign_up_page.dart';
 import 'user_home.dart';
 
@@ -140,7 +140,7 @@ class _SigninPage extends State<SigninPage> {
                             onTap: () {
                               if (_formKey.currentState.validate()) {
                                 // Process data.
-                                authenticateUser(Email, Password);
+                                authenticateUser(Email, Password); //!!<--------- Function call from auth.dart to authenticate user!!
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => UserHome(),
                                 ));
