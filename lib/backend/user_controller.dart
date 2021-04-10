@@ -3,7 +3,7 @@ import 'models/users.dart';
 import 'models/medicine.dart';
 
 //! USER METHODS
-// Create User
+//! Create User
 createUser(String name, String email, int height, int weight, int age,
     String password, int streak) async {
   Db db = await Db.create(
@@ -26,7 +26,7 @@ createUser(String name, String email, int height, int weight, int age,
   await db.close();
 }
 
-// Find User by ID
+//! Find User by ID
 findUserById(String id) async {
   Db db = await Db.create(
       "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
@@ -42,7 +42,7 @@ findUserById(String id) async {
   return (user);
 }
 
-// Find user by email
+//! Find user by email
 findUserByEmail(String email) async {
   Db db = await Db.create(
       'mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz');
@@ -72,35 +72,7 @@ findUserByEmail(String email) async {
   return (user);
 }
 
-// Authenticate user login
-authenticateUser(String email, String password) async {
-  bool authenticated = false;
-
-  Db db = await Db.create(
-      'mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz');
-  await db.open();
-  print('Connected to MongoDb');
-  DbCollection users = db.collection('users');
-
-  if (users.find(where.eq('email', email)) != null) {
-    var user = await users.find(where.eq('email', email)).toList();
-    if (user[0]['password'] == password) {
-      authenticated = true;
-      print("Authentication Success");
-    } else {
-      print("Authentication Failed");
-    }
-  } else {
-    print("Authentication Failed");
-  }
-
-  print('Closing MongoDB');
-  await db.close();
-
-  return authenticated;
-}
-
-// Update User
+//! Update User
 updateUser(String id, String name, String email, int height, int weight,
     int age, String password, int streak) async {
   Db db = await Db.create(
@@ -123,7 +95,7 @@ updateUser(String id, String name, String email, int height, int weight,
   await db.close();
 }
 
-// Delete User
+//! Delete User
 deleteUser(String id) async {
   Db db = await Db.create(
       "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
@@ -139,54 +111,6 @@ deleteUser(String id) async {
 }
 //! END OF USER METHODS
 
-//! Medicine
-
-// add medicine
-addMedicine(
-    String userId, String name, String dosage, int time, int repeat) async {
-  Db db = await Db.create(
-      "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
-  await db.open();
-  print("Connected to MongoDB");
-  DbCollection meds = db.collection('medicine');
-
-  await meds.insert({
-    'userID': userId,
-    'name': name,
-    'dosage': dosage,
-    'time': time,
-    'repeat': repeat,
-    'completed': false
-  });
-
-  print('Closing MongoDB');
-  await db.close();
-}
-
-getUserMedicine(String userId) async {
-  Db db = await Db.create(
-      "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
-  await db.open();
-  print("Connected to MongoDB");
-  DbCollection meds = db.collection('medicine');
-
-  var userMeds = await meds.find(where.eq('userID', userId)).toList();
-  print(userMeds);
-
-  print('Closing MongoDB');
-  await db.close();
-  return (userMeds);
-}
-
 main(List<String> args) {
-  // createUser('Test 2', 'test2@email.com', 72, 175, 24, '1234', 32);
-  findUserByEmail('test1@email.com');
-  // findUserById('606ccc2e1e55117067049ba3');
-  // var auth = authenticateUser('test3@email.com', '1234');
-  // print(auth);
-  // updateUser('606e0a407f314f0c108446f3', 'test 1 update', 'test@test.com', 175, 160, 40, '1234', 12);
-  // deleteUser('606e909ff039883a1d95f0b8');
-  // addMedicine('606e907f779fd77e42bc71b9', 'smth', '100mg', 2100, 24);
-  getUserMedicine('606e907f779fd77e42bc71b9');
   return;
 }

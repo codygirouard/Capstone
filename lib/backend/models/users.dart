@@ -7,9 +7,16 @@ class User {
   final int weight;
   final int streak;
 
-  User({this.userName, this.userID, this.email, this.password, this.height, this.weight, this.streak});
+  User(
+      {this.userName,
+      this.userID,
+      this.email,
+      this.password,
+      this.height,
+      this.weight,
+      this.streak});
 
-  factory User.fromJson(Map<String, dynamic> json){
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       userID: json['userID'] as String,
       email: json['email'] as String,

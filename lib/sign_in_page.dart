@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app1/backend/connection.dart';
+import 'package:flutter_app1/backend/auth.dart';
 import 'sign_up_page.dart';
 import 'user_home.dart';
 
@@ -103,7 +103,6 @@ class _SigninPage extends State<SigninPage> {
                       },
                     ),
                   ),
-
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
