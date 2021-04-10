@@ -12,15 +12,24 @@ createUser(String name, String email, int height, int weight, int age,
   print("Connected to MongoDB");
   DbCollection users = db.collection('users');
 
-  await users.insert({
-    'name': name,
-    'email': email,
-    'password': password,
-    'height': height,
-    'weight': weight,
-    'age': age,
-    'streak': streak
-  });
+  //assign number of instances of this email to 'exists'
+  int exists = await users.count(where.eq('email',email));
+
+  if (exists != 1) {
+    //insert user into mongoDb
+      await users.insert({
+        'name': name,
+        'email': email,
+        'password': password,
+        'height': height,
+        'weight': weight,
+        'age': age,
+        'streak': streak
+      });
+      print('User created!');
+  }else{
+    print('Exists Already');
+  }
 
   print('Closing MongoDB');
   await db.close();

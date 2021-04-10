@@ -11,20 +11,19 @@ authenticateUser(String email, String password) async {
   await db.open();
   print('Connected to MongoDb');
   DbCollection users = db.collection('users');
+  int exists = await users.count(where.eq('email',email));
 
   var user = await users.find(where.eq('email', email)).toList();
-  var checkEmail = user[0]['email'];
-  var checkPassword = user[0]['password'];
 
-  if (checkEmail == email) {
-    if (checkPassword == password) {
+  if(exists == 1){
+    if(user[0]['password'] == password){
       authenticated = true;
       print("Authentication Success");
-    } else {
-      print("Authentication Failed");
+    }else{
+      print('Authentication Failed');
     }
-  } else {
-    print("Authentication Failed");
+  }else{
+    print('Authentication Failed');
   }
 
   print('Closing MongoDB');

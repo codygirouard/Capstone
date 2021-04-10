@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sign_in_page.dart';
 import 'user_home.dart';
+import 'backend/user_controller.dart';
 
 void main() {
   runApp(SignupPage());
@@ -332,6 +333,8 @@ class _SignupPage extends State<SignupPage> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => UserHome(),
                                 ));
+                                var usrHeight = int.parse(height);
+                                createUser(f_Name, email, usrHeight, 210, 36, password, 7); //<---!!Function call to send user data to DB!!
                               }
                             },
                             child: new Container(
