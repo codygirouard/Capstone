@@ -4,7 +4,7 @@ import 'models/medicine.dart';
 
 //! USER METHODS
 //! Create User
-createUser(String fName, String lName, String email, int height, int weight, int age,
+Future <bool> createUser(String fName, String lName, String email, int height, int weight, int age,
     String password, int streak, String phone, String pharmacy, String insurance, String gender, String maiden) async {
   var failed = false;
   Db db = await Db.create(
