@@ -3,7 +3,7 @@ import 'models/users.dart';
 import 'models/medicine.dart';
 
 // Authenticate user login
-authenticateUser(String email, String password) async {
+Future <bool> authenticateUser(String email, String password) async {
   bool authenticated = false;
 
   Db db = await Db.create(
