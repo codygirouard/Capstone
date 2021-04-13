@@ -356,7 +356,8 @@ class _SignupPage extends State<SignupPage> {
                                 ));
                                 var usrHeight = int.parse(height);
                                 var usrAge = int.parse(age);
-                                createUser(f_Name, l_Name, email, usrHeight, 210, usrAge, password, 0, phone_no, pharmacy, insurance, gender, maiden_name); //<---!!Function call to send user data to DB!!
+                                var usrWeight = int.parse(weight);
+                                createUser(f_Name, l_Name, email, usrHeight, usrWeight, usrAge, password, 0, phone_no, pharmacy, insurance, gender, maiden_name); //<---!!Function call to send user data to DB!!
                               }
                             },
                             child: new Container(
