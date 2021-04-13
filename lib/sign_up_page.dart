@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/home.dart';
 import 'sign_in_page.dart';
 import 'user_home.dart';
 import 'backend/user_controller.dart';
@@ -19,7 +20,7 @@ class _SignupPage extends State<SignupPage> {
   String email = "";
   String phone_no = "";
   String height = "";
-  String weight="";
+  String weight = "";
   String age = "";
   String pharmacy = "";
   String insurance = "";
@@ -197,7 +198,7 @@ class _SignupPage extends State<SignupPage> {
                               return null;
                             },
                             decoration:
-                            new InputDecoration(labelText: 'Weight (lbs)'),
+                                new InputDecoration(labelText: 'Weight (lbs)'),
                             keyboardType: TextInputType.number,
                           ),
                         ),
@@ -351,13 +352,35 @@ class _SignupPage extends State<SignupPage> {
                             onTap: () {
                               if (_formKey.currentState.validate()) {
                                 // Process data.
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => UserHome(),
-                                ));
                                 var usrHeight = int.parse(height);
-                                var usrAge = int.parse(age);
                                 var usrWeight = int.parse(weight);
-                                createUser(f_Name, l_Name, email, usrHeight, usrWeight, usrAge, password, 0, phone_no, pharmacy, insurance, gender, maiden_name); //<---!!Function call to send user data to DB!!
+                                var usrAge = int.parse(age);
+                                createUser(
+                                    f_Name,
+                                    l_Name,
+                                    email,
+                                    usrHeight,
+                                    usrWeight,
+                                    usrAge,
+                                    password,
+                                    0,
+                                    phone_no,
+                                    pharmacy,
+                                    insurance,
+                                    _gender,
+                                    maiden_name).then((failed) {
+                                      print("failed == $failed");
+                                      if (failed) {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => SignupPage(),
+                                              ));
+                                      } else {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => UserHome(),
+                                              ));
+                                      }
+                                  }
+                                );
                               }
                             },
                             child: new Container(
