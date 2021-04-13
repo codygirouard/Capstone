@@ -19,6 +19,8 @@ class _SigninPage extends State<SigninPage> {
   String Email = "";
   String Password = "";
   String email = "";
+  String maiden_name = "";
+  String new_password = "";
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
@@ -106,10 +108,11 @@ class _SigninPage extends State<SigninPage> {
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+
                       Expanded(
                         child: Padding(
                             padding: const EdgeInsets.only(
-                                left: 10.0, right: 20.0, top: 10.0),
+                                left: 10.0, right: 20.0, top: 0.0),
                             child: GestureDetector(
                               onTap: () {
                                 showDialog(
@@ -140,10 +143,21 @@ class _SigninPage extends State<SigninPage> {
                             onTap: () {
                               if (_formKey.currentState.validate()) {
                                 // Process data.
-                                authenticateUser(Email, Password); //!!<--------- Function call from auth.dart to authenticate user!!
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => UserHome(),
-                                ));
+                                authenticateUser(Email, Password)
+                                    .then((authenticated) {
+                                  print("authenticated == $authenticated");
+                                  if (authenticated) {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => UserHome(),
+                                    ));
+                                  } else {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => SigninPage(),
+                                    ));
+                                  }
+                                });
                               }
                             },
                             child: new Container(
@@ -214,7 +228,7 @@ class _SigninPage extends State<SigninPage> {
 
   Widget _buildPopupDialog(BuildContext context) {
     return new AlertDialog(
-      title: const Text('Email verification code'),
+      title: const Text('Forgot Password'),
       content: new Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,8 +241,24 @@ class _SigninPage extends State<SigninPage> {
             },
             decoration: new InputDecoration(labelText: 'Email'),
           ),
+          new TextField(
+            onChanged: (String text) {
+              setState(() {
+                maiden_name = text;
+              });
+            },
+            decoration: new InputDecoration(labelText: "Mother's maiden name"),
+          ),
+          new TextField(
+            onChanged: (String text) {
+              setState(() {
+                new_password = text;
+              });
+            },
+            decoration: new InputDecoration(labelText: "New Password"),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             child: Container(
               alignment: Alignment.center,
               height: 40.0,
@@ -239,7 +269,7 @@ class _SigninPage extends State<SigninPage> {
                   ),
                   color: Colors.white,
                   borderRadius: new BorderRadius.circular(9.0)),
-              child: new Text("Send",
+              child: new Text("Change Password",
                   style: new TextStyle(
                       fontSize: 18.0,
                       color: Colors.black,
