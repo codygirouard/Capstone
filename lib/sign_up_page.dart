@@ -19,6 +19,7 @@ class _SignupPage extends State<SignupPage> {
   String email = "";
   String phone_no = "";
   String height = "";
+  String weight="";
   String age = "";
   String pharmacy = "";
   String insurance = "";
@@ -177,6 +178,26 @@ class _SignupPage extends State<SignupPage> {
                             },
                             decoration:
                                 new InputDecoration(labelText: 'Height (cm)'),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 0.0),
+                          child: new TextFormField(
+                            onChanged: (String text) {
+                              setState(() {
+                                weight = text;
+                              });
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration:
+                            new InputDecoration(labelText: 'Weight (lbs)'),
                             keyboardType: TextInputType.number,
                           ),
                         ),
