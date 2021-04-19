@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/backend/user_controller.dart';
+import 'package:flutter_app1/home.dart';
 import 'backend/auth.dart';
 import 'sign_up_page.dart';
 import 'user_home.dart';
@@ -259,21 +261,37 @@ class _SigninPage extends State<SigninPage> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-            child: Container(
-              alignment: Alignment.center,
-              height: 40.0,
-              decoration: new BoxDecoration(
-                  border: Border.all(
-                    color: Color(0xfff020202),
-                    width: 2,
-                  ),
-                  color: Colors.white,
-                  borderRadius: new BorderRadius.circular(9.0)),
-              child: new Text("Change Password",
-                  style: new TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
+            child: GestureDetector(
+              onTap: (){
+                  // Process data.
+                  forgot_passwordcheck(email, maiden_name)
+                      .then((authenticated) {
+                    print("authenticated == $authenticated");
+                    if (authenticated) {
+                      changeUserPwd(email, new_password);
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                        builder: (context) => UserHome(),
+                      ));
+                    }
+                  });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 40.0,
+                decoration: new BoxDecoration(
+                    border: Border.all(
+                      color: Color(0xfff020202),
+                      width: 2,
+                    ),
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.circular(9.0)),
+                child: new Text("Change Password",
+                    style: new TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
           ),
         ],
