@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app1/backend/user_controller.dart';
 import 'package:flutter_app1/home.dart';
@@ -18,6 +17,7 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPage extends State<SigninPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool throwError = false;
   String Email = "";
   String Password = "";
   String email = "";
@@ -154,10 +154,11 @@ class _SigninPage extends State<SigninPage> {
                                       builder: (context) => UserHome(),
                                     ));
                                   } else {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => SigninPage(),
-                                    ));
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          _errorPopup(context),
+                                    );
                                   }
                                 });
                               }
@@ -228,6 +229,47 @@ class _SigninPage extends State<SigninPage> {
     );
   }
 
+  Widget _errorPopup(BuildContext context) {
+    return new AlertDialog(
+        title: const Text('Incorrect information. Please try again!'),
+      content: new Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+              child: GestureDetector(
+                onTap: (){
+                  // Process data.
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SigninPage(),
+                      ));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                      border: Border.all(
+                        color: Color(0xfff020202),
+                        width: 2,
+                      ),
+                      color: Colors.white,
+                      borderRadius: new BorderRadius.circular(9.0)),
+                  child: new Text("Try Again",
+                      style: new TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ),
+            ]
+      ),
+    );
+  }
+
   Widget _buildPopupDialog(BuildContext context) {
     return new AlertDialog(
       title: const Text('Forgot Password'),
@@ -273,6 +315,12 @@ class _SigninPage extends State<SigninPage> {
                           .push(MaterialPageRoute(
                         builder: (context) => UserHome(),
                       ));
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            _errorPopup(context),
+                      );
                     }
                   });
               },
