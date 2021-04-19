@@ -113,6 +113,34 @@ updateUser(String id, String name, String email, int height, int weight,
   await db.close();
 }
 
+changeUserPwd(String email, String newPwd) async {
+  Db db = await Db.create(
+      "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
+  await db.open();
+  print("Connected to MongoDB");
+  DbCollection users = db.collection('users');
+  var user = await users.find(where.eq('email', email)).toList();
+
+  await users.update(await users.findOne(where.eq('email', email)), {
+    "fName": user[0]['fName'],
+    "lName": user[0]['lName'],
+    'email': user[0]['email'],
+    'password': newPwd,
+    'height': user[0]['height'],
+    'weight': user[0]['weight'],
+    'age': user[0]['age'],
+    'streak': user[0]['streak'],
+    "phone": user[0]['phone'],
+    "pharmacy": user[0]['pharmacy'],
+    "insurance": user[0]['insurance'],
+    "gender": user[0]['gender'],
+    "maiden": user[0]['maiden'],
+  });
+
+  print('Closing MongoDB');
+  await db.close();
+}
+
 //! Delete User
 deleteUser(String id) async {
   Db db = await Db.create(
