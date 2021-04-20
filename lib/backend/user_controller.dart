@@ -1,4 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:flutter_app1/globals.dart' as globals;
 import 'models/users.dart';
 import 'models/medicine.dart';
 
@@ -108,6 +109,25 @@ updateUser(String id, String name, String email, int height, int weight,
     'age': age,
     'streak': streak
   });
+
+  print('Closing MongoDB');
+  await db.close();
+}
+
+setUserGlobal(String email) async {
+  Db db = await Db.create(
+      "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
+  await db.open();
+  print("Connected to MongoDB");
+  DbCollection users = db.collection('users');
+
+  var user = await users.find(where.eq('email', email)).toList();
+  globals.height    = user[0]['height'];
+  globals.weight    = user[0]['weight'];
+  globals.name      = user[0]['fName'] + " " + user[0]['lName'];
+  globals.pharmacy  = user[0]['pharmacy'];
+  globals.insurance = user[0]['insurance'];
+  globals.phone     = user[0]['phone'];
 
   print('Closing MongoDB');
   await db.close();
