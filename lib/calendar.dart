@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'backend/med_controller.dart';
+import 'bottom_bar.dart';
 import 'globals.dart' as globals;
 
 // constants
@@ -102,6 +103,7 @@ class _CalendarUI extends State<Calendar> with TickerProviderStateMixin {
           Expanded(child: _buildEventList()),
         ],
       ),
+      bottomNavigationBar: BottomBar(),
     );
   }
 
