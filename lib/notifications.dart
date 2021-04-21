@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'bottom_bar.dart';
 import 'backend/med_controller.dart';
 import 'globals.dart' as globals;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() {
   runApp(Notifications());
@@ -14,10 +17,18 @@ class Notifications extends StatefulWidget {
 
 class _Notifications extends State<Notifications> {
   List<String> notifs = [];
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState() {
     super.initState();
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('America/Chicago'));
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSettings = new InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSettings);
     loadMedicine();
   }
 
@@ -48,13 +59,44 @@ class _Notifications extends State<Notifications> {
     List<String> medsList = [];
     var i = 0;
     for (i = 0; i < meds.length; i++) {
-      medsList.add(meds[i]['name'] +
-          " " +
-          getTime(meds[i]['time'].toString()).toString());
+      int time = meds[i]['time'];
+      int hour = time ~/ 100;
+      int minute = time % 100;
+      tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+      tz.TZDateTime scheduledDate =
+          tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+      if (scheduledDate.isAfter(now.subtract(const Duration(minutes: 10)))) {
+        medsList.add(meds[i]['name'] +
+            " " +
+            getTime(meds[i]['time'].toString()).toString());
+        scheduleNotif(meds[i]['name'], meds[i]['time'], i);
+      }
     }
     setState(() {
       notifs = medsList;
     });
+  }
+
+  void scheduleNotif(String name, int time, int id) async {
+    int hour = time ~/ 100;
+    int minute = time % 100;
+    tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate =
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+    if (scheduledDate.isBefore(now)) {
+      return;
+    }
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        name,
+        'Take now!',
+        scheduledDate,
+        const NotificationDetails(
+            android: AndroidNotificationDetails(
+                '0', 'UltraMedz', 'Medicine Notification')),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 
   // convert number time into a string time (e.g.: 1500 = 3:00 PM)
@@ -68,6 +110,16 @@ class _Notifications extends State<Notifications> {
     time = (timeNum ~/ 100).toString() + ":" + minutes + time;
 
     return time;
+  }
+
+  // convert string time to number time (e.g.: 12:00 PM = 1200)
+  int strTimeToNum(String time) {
+    int period = time.split(" ")[1] == "AM" ? 0 : 1200;
+    if (time.split(":")[0] == "12") {
+      period = period == 0 ? 1200 : 0;
+    }
+    period += int.parse(time.replaceAll(RegExp(r':'), '').split(" ")[0]);
+    return period;
   }
 
   Widget _buildNotifications() {
@@ -89,7 +141,7 @@ class _Notifications extends State<Notifications> {
 
   Widget _notificationCard(String notification) {
     List<String> _options = [
-      'Took at...',
+      'Took it!',
       'Snooze',
     ];
 
@@ -127,10 +179,16 @@ class _Notifications extends State<Notifications> {
   void _subMenu(String choice) {
     setState(() {
       List info = choice.split("+");
-      if (info[0] == 'Took at...') {
+      if (info[0] == 'Took it!') {
         notifs.removeWhere((notif) => info[1] == notif);
       } else {
-        notifs.removeWhere((notif) => info[1] == notif);
+        String name = info[1].split(" ")[0];
+        int time =
+            strTimeToNum(info[1].split(" ")[1] + ' ' + info[1].split(" ")[2]);
+        time = (time + 100) % 2400;
+        scheduleNotif(name, time, 10);
+        int index = notifs.indexWhere((notif) => info[1] == notif);
+        notifs[index] = name + ' ' + getTime(time.toString());
       }
     });
   }

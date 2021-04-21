@@ -16,6 +16,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   table_calendar: ^2.3.3
 
+  flutter_local_notifications:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
