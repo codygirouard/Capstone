@@ -5,7 +5,7 @@ import 'models/users.dart';
 import 'models/medicine.dart';
 
 // Authenticate user login
-authenticateUser(String email, String password) async {
+Future <bool> authenticateUser(String email, String password) async {
   bool authenticated = false;
 
   Db db = await Db.create(
@@ -35,6 +35,37 @@ authenticateUser(String email, String password) async {
 
   return authenticated;
 }
+
+Future <bool> forgot_passwordcheck(String email, String maiden) async {
+  bool authenticated = false;
+
+  Db db = await Db.create(
+      'mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz');
+  await db.open();
+  print('Connected to MongoDb');
+  DbCollection users = db.collection('users');
+  int exists = await users.count(where.eq('email',email));
+
+  var user = await users.find(where.eq('email', email)).toList();
+
+  if(exists == 1){
+    if(user[0]['maiden'] == maiden){
+      authenticated = true;
+      print("Authentication Success");
+    }else{
+      print('Authentication Failed');
+    }
+  }else{
+    print('Authentication Failed');
+  }
+
+  print('Closing MongoDB');
+  await db.close();
+
+  return authenticated;
+}
+
+
 
 main(List<String> args) {
   return;
