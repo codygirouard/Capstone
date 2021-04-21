@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'bottom_bar.dart';
+import 'globals.dart' as globals;
 
 class HomeContainerProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var heightVal = (globals.height).toString();
+    var weightVal = (globals.weight).toString();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -41,7 +44,7 @@ class HomeContainerProfile extends StatelessWidget {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text("Abhaya Neupame", style: TextStyle(color: Colors.white)),
+                  Text(globals.name, style: TextStyle(color: Colors.white)),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -51,21 +54,21 @@ class HomeContainerProfile extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          Text("Abhaya Neupame",
+                          Text(heightVal,
                               style: TextStyle(color: Colors.white)),
                           Text("Height", style: TextStyle(color: Colors.white)),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Abhaya Neupame",
+                          Text(weightVal,
                               style: TextStyle(color: Colors.white)),
                           Text("Weight", style: TextStyle(color: Colors.white)),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Abhaya Neupame",
+                          Text("20.2",
                               style: TextStyle(color: Colors.white)),
                           Text("BMI", style: TextStyle(color: Colors.white)),
                         ],
@@ -75,10 +78,10 @@ class HomeContainerProfile extends StatelessWidget {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text("CVS/PHARMACY at Denton",
+                  Text(globals.pharmacy,
                       style: TextStyle(color: Colors.white)),
                   Text("Pharmacy", style: TextStyle(color: Colors.white)),
-                  Text("Blue Cross Blue Shield",
+                  Text(globals.insurance,
                       style: TextStyle(color: Colors.white)),
                   Text("Insurance", style: TextStyle(color: Colors.white)),
                 ],

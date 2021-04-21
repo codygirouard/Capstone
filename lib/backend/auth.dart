@@ -1,4 +1,6 @@
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:flutter_app1/globals.dart' as globals;
+import 'user_controller.dart';
 import 'models/users.dart';
 import 'models/medicine.dart';
 
@@ -19,6 +21,8 @@ Future <bool> authenticateUser(String email, String password) async {
     if(user[0]['password'] == password){
       authenticated = true;
       print("Authentication Success");
+      globals.email = email;
+      setUserGlobal(globals.email);
     }else{
       print('Authentication Failed');
     }

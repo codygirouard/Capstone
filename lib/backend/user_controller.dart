@@ -1,4 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:flutter_app1/globals.dart' as globals;
 import 'models/users.dart';
 import 'models/medicine.dart';
 
@@ -14,27 +15,27 @@ Future <bool> createUser(String fName, String lName, String email, int height, i
   DbCollection users = db.collection('users');
 
   //assign number of instances of this email to 'exists'
-  int exists = await users.count(where.eq('email',email));
+  int exists = await users.count(where.eq('email', email));
 
   if (exists != 1) {
     //insert user into mongoDb
-      await users.insert({
-        'fName': fName,
-        'lName': lName,
-        'email': email,
-        'password': password,
-        'height': height,
-        'weight': weight,
-        'age': age,
-        'streak': streak,
-        'phone': phone,
-        'pharmacy': pharmacy,
-        'insurance': insurance,
-        'gender': gender,
-        'maiden': maiden
-      });
-      print('User created!');
-  }else{
+    await users.insert({
+      'fName': fName,
+      'lName': lName,
+      'email': email,
+      'password': password,
+      'height': height,
+      'weight': weight,
+      'age': age,
+      'streak': streak,
+      'phone': phone,
+      'pharmacy': pharmacy,
+      'insurance': insurance,
+      'gender': gender,
+      'maiden': maiden
+    });
+    print('User created!');
+  } else {
     failed = true;
     print('Exists Already');
   }
@@ -77,7 +78,7 @@ findUserByEmail(String email) async {
   var age = user[0]['age'];
 
   //print every value of a given user
-  print('Name: ' + user[0]['name']);
+  print('Name: ' + user[0]['fName'] + ' ' + user[0]['lName']);
   print('Email: ' + user[0]['email']);
   print("Height: $height");
   print("Weight: $weight");
@@ -113,6 +114,31 @@ updateUser(String id, String name, String email, int height, int weight,
   await db.close();
 }
 
+//! SET GLOBAL USER VARIABLES
+setUserGlobal(String email) async {
+  Db db = await Db.create(
+      "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
+  await db.open();
+  print("Connected to MongoDB");
+  DbCollection users = db.collection('users');
+
+  var user = await users.find(where.eq('email', email)).toList();
+  globals.id = user[0]['_id'].toString();
+  RegExp exp = RegExp(r'ObjectId\("(\w+)"\)');
+  final match = exp.firstMatch(globals.id);
+  globals.id = match.group(1);
+  globals.height = user[0]['height'];
+  globals.weight = user[0]['weight'];
+  globals.name = user[0]['fName'] + " " + user[0]['lName'];
+  globals.pharmacy = user[0]['pharmacy'];
+  globals.insurance = user[0]['insurance'];
+  globals.phone = user[0]['phone'];
+
+  print('Closing MongoDB');
+  await db.close();
+}
+
+//! CHANGE PASSWORD
 changeUserPwd(String email, String newPwd) async {
   Db db = await Db.create(
       "mongodb+srv://user:teamultragroup@cluster0.rbbqs.mongodb.net/ultramedz");
