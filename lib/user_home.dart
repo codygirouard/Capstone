@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/profile.dart';
 import 'bottom_bar.dart';
 import 'sign_in_page.dart';
 import 'package:flutter_app1/backend/med_controller.dart';
@@ -106,6 +107,10 @@ class _UserHome extends State<UserHome> {
                 int Time = int.parse(time);
                 int Repeat = int.parse(repeat);
                 addMedicine(globals.id, medName, dosage, Time, Repeat);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserHome()),
+                ).then((value) => setState(() {}));
               },
               child: Container(
                 alignment: Alignment.center,
